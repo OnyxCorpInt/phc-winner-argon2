@@ -19,6 +19,7 @@ RUN = argon2
 BENCH = bench
 GENKAT = genkat
 ARGON2_VERSION ?= ZERO
+JDK_INCLUDES = -I/usr/lib/jvm/java-8-openjdk-amd64/include -I/usr/lib/jvm/java-8-openjdk-amd64/include/linux
 
 # installation parameters for staging area and final installation path
 # Note; if Linux and not Debian/Ubuntu version also add lib override to make command-line
@@ -31,13 +32,13 @@ ABI_VERSION = 1
 
 DIST = phc-winner-argon2
 
-SRC = src/argon2.c src/core.c src/blake2/blake2b.c src/thread.c src/encoding.c
+SRC = src/argon2.c src/core.c src/blake2/blake2b.c src/thread.c src/encoding.c src/argon2_java.c
 SRC_RUN = src/run.c
 SRC_BENCH = src/bench.c
 SRC_GENKAT = src/genkat.c
 OBJ = $(SRC:.c=.o)
 
-CFLAGS += -std=c89 -O3 -Wall -g -Iinclude -Isrc
+CFLAGS += -std=c89 -O3 -Wall -g -Iinclude -Isrc $(JDK_INCLUDES)
 
 ifeq ($(NO_THREADS), 1)
 CFLAGS += -DARGON2_NO_THREADS
@@ -65,7 +66,7 @@ BUILD_PATH := $(shell pwd)
 KERNEL_NAME := $(shell uname -s)
 MACHINE_NAME := $(shell uname -m)
 
-LIB_NAME = argon2
+LIB_NAME = argon2-mblsft
 PC_NAME = lib$(LIB_NAME).pc
 PC_SRC = $(PC_NAME).in
 

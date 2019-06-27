@@ -1,8 +1,8 @@
 argon2
-libargon2.a
-libargon2.so*
-libargon2.dylib
-libargon2.pc
+libargon2-mblsft.a
+libargon2-mblsft.so*
+libargon2-mblsft.dylib
+libargon2-mblsft.pc
 .DS_Store
 src/*.o
 src/blake2/*.o
